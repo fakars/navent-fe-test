@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-//340px
-//290px
+
 const GalleryWrapper = styled.div`
   position: relative;
   height: 180px;
@@ -10,20 +9,27 @@ const GalleryWrapper = styled.div`
     width: 100%;
     height: 100%;
   }
-  /* ::after {
+  ::after,
+  ::before {
     content: '';
     position: absolute;
-    border: 3px solid white;
+    border: 3.5px solid white;
     border-width: 3px 0 0 3px;
     display: block;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     bottom: 45%;
     border-radius: 3px;
-    left: 86%;
+    cursor: pointer;
+  }
+  ::before {
+    left: 5%;
+    transform: rotate(-45deg);
+  }
+  ::after {
+    left: 87%;
     transform: rotate(135deg);
-    box-shadow: 0 0 12px 12px rgba(0, 0, 0, 0.33);
-  } */
+  }
 `
 
 const ImageGallery = ({ postingData }) => {
