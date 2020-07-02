@@ -4,14 +4,16 @@ import { addThousandSeparator } from '../../../utils'
 
 const PriceWrapper = styled.div`
   border-right: 1px solid #e9e9e9;
-  padding: 12px 0 7px 11px;
+  padding: 12px 0 15px 11px;
   p {
-    font-size: 18px;
+    font-size: 1.4375rem;
     font-weight: 800;
+    margin-bottom: 5px;
   }
   span {
-    font-size: 12px;
+    font-size: 0.8rem;
     height: 12px;
+    margin-left: 3px;
   }
 `
 

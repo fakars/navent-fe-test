@@ -29,13 +29,13 @@ const RadioOption = styled.div`
   }
   span:after {
     content: '';
-    height: 9px;
-    width: 9px;
+    height: 10px;
+    width: 10px;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.bg.button_checkbox};
     position: absolute;
-    top: 18%;
-    left: 17%;
+    top: 2px;
+    left: 2px;
     display: none;
   }
 

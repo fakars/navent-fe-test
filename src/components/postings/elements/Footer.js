@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { daysFromDateToNow } from '../../../utils'
 
 const FooterWrapper = styled.div`
   display: flex;
@@ -14,8 +15,8 @@ const FooterWrapper = styled.div`
   }
   p::before {
     content: '';
-    height: 1em;
-    width: 1em;
+    height: 1.1em;
+    width: 1.1em;
     display: block;
     margin-right: 5px;
     position: relative;
@@ -38,7 +39,9 @@ const Button = styled.button`
 const Footer = ({ postingData }) => {
   return (
     <FooterWrapper>
-      <p>Publicado hace 3 dias</p>
+      <p>{`Publicado hace ${daysFromDateToNow(
+        postingData.publish_date
+      )} dias`}</p>
       <Button>Contactar</Button>
     </FooterWrapper>
   )

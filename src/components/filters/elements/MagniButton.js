@@ -5,7 +5,7 @@ const Button = styled.button`
   background: none;
   cursor: pointer;
   border: 1px solid #e9e9e9;
-  border-radius: 5px;
+  border-radius: 6px;
   outline: none;
   width: 15%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.03);
@@ -14,7 +14,7 @@ const Button = styled.button`
   }
   :active {
     background: #61c1e7;
-    border-color: #1ea7dd;
+    border-color: #61c1e7;
     span {
       border-color: white;
       background: #61c1e7;

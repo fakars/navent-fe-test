@@ -17,9 +17,10 @@ const HeaderWrapper = styled.div`
   a,
   h4 {
     color: #61c1e7;
+    margin-bottom: 5px;
   }
   span {
-    font-size: 13px;
+    font-size: 0.86rem;
     font-weight: 600;
     cursor: pointer;
   }

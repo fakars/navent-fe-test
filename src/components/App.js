@@ -1,9 +1,10 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import FiltersContainer from './filters/FiltersContainer'
 import CardList from './postings/CardList'
+import theme from '../theme'
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
  * {
    margin: 0;
    padding: 0;
@@ -15,22 +16,22 @@ const GlobalStyle = createGlobalStyle`
  }
 `
 
-const AppContainer = styled.main`
+const Wrapper = styled.main`
   display: grid;
-  grid-template-columns: 17em calc(100% - 300px);
+  grid-template-columns: 19em calc(100% - 400px);
   grid-column-gap: 0.7em;
   padding: 0.7em 5em 0.7em 5em;
 `
 
 const App = () => {
   return (
-    <>
-      <GlobalStyle />
-      <AppContainer>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Wrapper>
         <FiltersContainer />
         <CardList />
-      </AppContainer>
-    </>
+      </Wrapper>
+    </ThemeProvider>
   )
 }
 
