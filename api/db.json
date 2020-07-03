@@ -33,7 +33,6 @@
             "title": "Guido y Callao, 2amb coc y lav todo luz 50m impec amob categoría",
             "posting_pictures": [
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/46/15/29/71/1200x1200/1728344448.jpg",
-                "https: //imgar.zonapropcdn.com/avisos/resize/1/00/46/15/29/71/1200x1200/1726996679.jpg",
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/46/15/29/71/1200x1200/1726996685.jpg",
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/46/15/29/71/1200x1200/1726996682.jpg",
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/46/15/29/71/1200x1200/1726996667.jpg"
@@ -97,12 +96,12 @@
                         "amount": 22500,
                         "currency": "ARS"
                     },
-                    "expenses": null,
-                },
+                    "expenses": null
+                }
             ],
             "operation_type": {
                 "operation_type_id": 3,
-                "operation_type_name": "Alquiler Temporal",
+                "operation_type_name": "Alquiler Temporal"
             },
             "publication_plan": "HIGHLIGHTED",
             "publish_date": "02/12/2019",
@@ -114,7 +113,7 @@
             "posting_pictures": [
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/45/11/85/98/1200x1200/1714960773.jpg",
                 "https://imgar.zonapropcdn.com/avisos/resize/1/00/45/11/85/98/1200x1200/1725386424.jpg",
-                "https://imgar.zonapropcdn.com/avisos/resize/1/00/45/11/85/98/1200x1200/1725386427.jpg",
+                "https://imgar.zonapropcdn.com/avisos/resize/1/00/45/11/85/98/1200x1200/1725386427.jpg"
             ],
             "posting_slug": "juncal-coronel-diaz.-al-frente-63m-gran-balcon-t-44186948",
             "posting_description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus a neque non magna scelerisque imperdiet sed ac magna. Mauris enim lectus, varius at quam a, venenatis condimentum ante. Morbi mattis velit vel dictum varius. Suspendisse tempor velit ac rhoncus vehicula. Aenean elementum dolor purus, et mattis arcu consectetur a. Sed dictum felis id molestie accumsan. Aliquam sit amet diam feugiat, tincidunt sem vehicula, dignissim augue. Integer gravida sapien erat, in faucibus ligula cursus non. Aliquam vestibulum est nibh, vitae vehicula ipsum facilisis quis. Pellentesque ac tempus metus, non posuere dolor."

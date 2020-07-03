@@ -47,7 +47,7 @@ const Card = ({ postingData }) => {
       <CardData>
         <DataLeft>
           <ImageGallery postingData={postingData} />
-          <PriceContainer postingData={postingData} />
+          <PriceContainer postingId={postingData.posting_id} />
         </DataLeft>
         <DataRight>
           <Header postingData={postingData} />

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { InputFilter, RadioFilter } from './types'
+import { InputFilter, RadioFilter } from './filterTypes'
+
 import { filtersByType } from './filterdata'
 
 const FilterWrapper = styled.div`
@@ -9,7 +10,6 @@ const FilterWrapper = styled.div`
   border-top: 1px solid #e9e9e9;
   padding: 20px 0 10px 0;
 `
-
 const renderFilter = filterType => {
   filterType = filterType.toLowerCase()
   if (filterType === 'address')

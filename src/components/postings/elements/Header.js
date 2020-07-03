@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 const HeaderWrapper = styled.div`
   h4 {
@@ -37,4 +38,4 @@ const Header = ({ postingData }) => {
   )
 }
 
-export default Header
+export default connect()(Header)

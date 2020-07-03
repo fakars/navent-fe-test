@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchPostings } from '../../redux/actions'
 import Card from './Card'
-import postings from './postingdata'
 
 const sortedPostings = postingsArray => {
   const order = {
@@ -13,7 +14,24 @@ const sortedPostings = postingsArray => {
   )
 }
 
-const CardList = () => {
+const CardList = ({ postings, fetchPostings, selectedFilter }) => {
+  useEffect(() => {
+    fetchPostings()
+  }, [fetchPostings])
+
+  const filtered = () => {
+    if (
+      selectedFilter === postings.operation_type.operation_type_id &&
+      selectedFilter !== 0
+    ) {
+      return postings.filter(
+        p => p.operation_type.operation_type_id === selectedFilter
+      )
+    } else {
+      return postings
+    }
+  }
+
   return (
     <section>
       {postings &&
@@ -24,4 +42,11 @@ const CardList = () => {
   )
 }
 
-export default CardList
+const mapStateToProps = state => {
+  return {
+    postings: state.postings,
+    selectedFilter: state.filters.selectedFilter,
+  }
+}
+
+export default connect(mapStateToProps, { fetchPostings })(CardList)

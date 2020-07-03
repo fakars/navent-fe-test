@@ -1,7 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
 
-const TitleContainer = styled.div`
+export default styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,17 +13,8 @@ const TitleContainer = styled.div`
     width: 6px;
     border: 1px solid grey;
     border-width: 2px 0 0 2px;
-    transform: rotate(45deg);
+    transform: ${({ visibility }) =>
+      visibility ? 'rotate(45deg)' : 'rotate(-135deg)'};
     margin-right: 10px;
   }
 `
-
-const FilterTitle = props => {
-  return (
-    <TitleContainer>
-      <h3>{props.title}</h3>
-    </TitleContainer>
-  )
-}
-
-export default FilterTitle
