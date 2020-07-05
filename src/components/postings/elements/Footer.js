@@ -1,6 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { activateLeadModal } from '../../../redux/actions'
 import styled from 'styled-components'
 import { daysFromDateToNow } from '../../../utils'
+import { Button } from './Button'
 
 const FooterWrapper = styled.div`
   display: flex;
@@ -24,27 +27,21 @@ const FooterWrapper = styled.div`
   }
 `
 
-const Button = styled.button`
-  background: #fc7b27;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-weight: 800;
-  font-size: 14px;
-  cursor: pointer;
-  outline: none;
-`
-
-const Footer = ({ postingData }) => {
+const Footer = ({ postingData, activateLeadModal }) => {
   return (
     <FooterWrapper>
       <p>{`Publicado hace ${daysFromDateToNow(
         postingData.publish_date
       )} dias`}</p>
-      <Button>Contactar</Button>
+      <Button
+        onClick={() =>
+          activateLeadModal({ active: true, postingId: postingData.posting_id })
+        }
+      >
+        Contactar
+      </Button>
     </FooterWrapper>
   )
 }
 
-export default Footer
+export default connect(null, { activateLeadModal })(Footer)

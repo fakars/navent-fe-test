@@ -4,31 +4,31 @@ import { FilterTitle, Radio } from '../elements'
 
 const RadioWrapper = styled.div`
   margin-bottom: 15px;
-  display: ${({ visibility }) => (visibility ? 'block' : 'none')};
+  display: ${({ visible }) => (visible ? 'block' : 'none')};
 `
 
 const RadioFilter = ({ content }) => {
-  const [visibility, setVisibility] = useState(true)
+  const [visible, setVisible] = useState(true)
   const handleToggle = () => {
-    if (visibility) {
-      setVisibility(false)
+    if (visible) {
+      setVisible(false)
     } else {
-      setVisibility(true)
+      setVisible(true)
     }
   }
   return (
     <>
-      <FilterTitle visibility={visibility} onClick={handleToggle}>
+      <FilterTitle visible={visible} onClick={handleToggle}>
         <h3>{content.title}</h3>
       </FilterTitle>
-      <RadioWrapper visibility={visibility}>
+      <RadioWrapper visible={visible}>
         {content.options &&
           content.options.map(option => {
             return (
               <Radio
                 key={option.value}
                 name={option.name}
-                value={option.value}
+                value={option.value.toString()}
                 wording={option.wording}
               />
             )

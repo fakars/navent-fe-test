@@ -12,4 +12,12 @@ router.get('/:id', (req, res) => {
   res.json(posting)
 })
 
+router.put('/:id', (req, res) => {
+  const updatedPosting = postingService.updatePostingById(
+    req.params.id,
+    req.body
+  )
+  res.json(updatedPosting)
+})
+
 module.exports = router

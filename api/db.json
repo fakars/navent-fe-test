@@ -2,6 +2,7 @@
     "postings": [
         {
             "posting_id": "44557981",
+            "favorited": false,
             "posting_location": {
                 "address": "Guido 1800",
                 "zone": "Recoleta",
@@ -42,6 +43,7 @@
         },
         {
             "posting_id": "44554144",
+            "favorited": false,
             "posting_location": {
                 "address": "San Lorenzo 1300",
                 "zone": "Güemes",
@@ -84,6 +86,7 @@
         },
         {
             "posting_id": "44186948",
+            "favorited": false,
             "posting_location": {
                 "address": "Juncal 3000",
                 "zone": "Barrio Norte",

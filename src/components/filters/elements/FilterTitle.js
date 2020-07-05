@@ -13,8 +13,9 @@ export default styled.div`
     width: 6px;
     border: 1px solid grey;
     border-width: 2px 0 0 2px;
-    transform: ${({ visibility }) =>
-      visibility ? 'rotate(45deg)' : 'rotate(-135deg)'};
+    transform: ${({ visible }) =>
+      visible ? 'rotate(45deg)' : 'rotate(-135deg)'};
     margin-right: 10px;
+    animation: transform 0.4ms forwards;
   }
 `

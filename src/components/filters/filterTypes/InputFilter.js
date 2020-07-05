@@ -1,35 +1,61 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { filterByAddress } from '../../../redux/actions'
 import styled from 'styled-components'
-import { FilterTitle, SearchInput, MagniButton } from '../elements'
+import { FilterTitle, StyledInput, MagniButton } from '../elements'
 
-const InputWrapper = styled.div`
+const SearchWrapper = styled.div`
   margin-bottom: 15px;
-  display: ${({ visibility }) => (visibility ? 'flex' : 'none')};
+  display: ${({ visible }) => (visible ? 'flex' : 'none')};
   transition: display 2s;
   justify-content: space-between;
   transition: display 500ms ease-in;
 `
 
-const InputFilter = ({ content }) => {
-  const [visibility, setVisibility] = useState(true)
+const InputFilter = ({ content, filterByAddress, addressSearched }) => {
+  const [visible, setVisible] = useState(true)
+
   const handleToggle = () => {
-    if (visibility) {
-      setVisibility(false)
+    if (visible) {
+      setVisible(false)
     } else {
-      setVisibility(true)
+      setVisible(true)
     }
   }
+
+  const handleOnSubmit = e => {
+    e.preventDefault()
+    console.log(e.target)
+    filterByAddress(addressSearched)
+  }
+
+  const handleOnchange = e => {
+    filterByAddress(e.target.value)
+  }
+
   return (
     <>
-      <FilterTitle visibility={visibility} onClick={handleToggle}>
+      <FilterTitle visible={visible} onClick={handleToggle}>
         <h3>{content.title}</h3>
       </FilterTitle>
-      <InputWrapper visibility={visibility}>
-        <SearchInput type="text" placeholder={content.placeholder} />
+      <SearchWrapper visible={visible} onSubmit={e => handleOnSubmit(e)}>
+        <StyledInput
+          name="search"
+          type="search"
+          placeholder={content.placeholder}
+          onChange={e => handleOnchange(e)}
+          value={addressSearched}
+        />
         <MagniButton />
-      </InputWrapper>
+      </SearchWrapper>
     </>
   )
 }
 
-export default InputFilter
+const mapStateToProps = state => {
+  return {
+    addressSearched: state.filters.addressSearched,
+  }
+}
+
+export default connect(mapStateToProps, { filterByAddress })(InputFilter)

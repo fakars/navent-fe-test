@@ -8,4 +8,8 @@ const getPostingById = id => {
   return db.postings.find(posting => posting.id === id)
 }
 
-module.exports = { getPostings, getPostingById }
+const updatePostingById = (id, body) => {
+  return db.postings.find(posting => posting.id === id)
+}
+
+module.exports = { getPostings, getPostingById, updatePostingById }

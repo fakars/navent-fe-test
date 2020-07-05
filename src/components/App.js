@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import FiltersContainer from './filters/FiltersContainer'
 import CardList from './postings/CardList'
+import LeadModal from './modal/Modal'
 import theme from '../theme'
 
 const GlobalStyles = createGlobalStyle`
@@ -12,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
    font-family: ${({ theme }) => theme.fonts.family};
  }
  body {
-  background: ${({ theme }) => theme.bg.main_bg};
+  background: ${({ theme }) => theme.bg.main_bg};  
  }
 `
 
@@ -23,14 +24,15 @@ const Wrapper = styled.main`
   padding: 0.7em 5em 0.7em 5em;
 `
 
-const App = () => {
+const App = ({ leadModalActive }) => {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
+      <GlobalStyles leadModalActive={leadModalActive} />
       <Wrapper>
         <FiltersContainer />
         <CardList />
       </Wrapper>
+      <LeadModal />
     </ThemeProvider>
   )
 }

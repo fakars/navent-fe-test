@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import { InputFilter, RadioFilter } from './filterTypes'
-
 import { filtersByType } from './filterdata'
 
 const FilterWrapper = styled.div`
