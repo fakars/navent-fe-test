@@ -15,3 +15,18 @@ export const daysFromDateToNow = date => {
   ).toString()
   return calculatedDate
 }
+
+export const renderPlan = plan => {
+  if (plan) {
+    switch (plan) {
+      case 'SUPERHIGHLIGHTED':
+        return 'Super destacado'
+      case 'HIGHLIGHTED':
+        return 'Destacado'
+      case 'SIMPLE':
+        return 'Simple'
+      default:
+        return ''
+    }
+  }
+}

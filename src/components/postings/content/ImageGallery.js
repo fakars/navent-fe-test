@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { FavoriteButton } from '../../common'
+import { renderPlan } from '../../../utils'
 
 const GalleryWrapper = styled.div`
   position: relative;
@@ -60,32 +62,6 @@ const Plan = styled.span`
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 `
 
-const FavoriteButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  width: 30px;
-  border: none;
-  background: white;
-  border-radius: 50%;
-  margin-top: 10px;
-  cursor: pointer;
-  outline: none;
-  :hover {
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
-    transition: 400ms;
-  }
-`
-const Icon = styled.span`
-  height: 16px;
-  width: 16px;
-  background-image: ${({ favorite }) =>
-    favorite
-      ? `url(${require('../../../assets/img/favChecked.svg')})`
-      : `url(${require('../../../assets/img/fav.svg')})`};
-`
-
 const ImageCounter = styled.div`
   display: flex;
   align-items: center;
@@ -111,7 +87,6 @@ const ImageCounter = styled.div`
 
 const ImageGallery = ({ postingData }) => {
   const [activeImage, setActiveImage] = useState(0)
-  const [favorite, setFavorite] = useState(false)
 
   const renderImages = images => {
     const styles = {
@@ -139,36 +114,15 @@ const ImageGallery = ({ postingData }) => {
     }
   }
 
-  const handleFavorite = () => {
-    return !favorite ? setFavorite(true) : setFavorite(false)
-  }
-
   const countImages = (currentImage, images) => {
     return <span>{`${currentImage + 1}/${images.length}`}</span>
-  }
-
-  const renderPlan = plan => {
-    if (plan) {
-      switch (plan) {
-        case 'SUPERHIGHLIGHTED':
-          return 'Super destacado'
-        case 'HIGHLIGHTED':
-          return 'Destacado'
-        case 'SIMPLE':
-          return 'Simple'
-        default:
-          return ''
-      }
-    }
   }
 
   return (
     <GalleryWrapper plan={postingData.publication_plan}>
       <TopContent>
         <Plan>{renderPlan(postingData.publication_plan)}</Plan>
-        <FavoriteButton onClick={handleFavorite}>
-          <Icon favorite={favorite} />
-        </FavoriteButton>
+        <FavoriteButton />
       </TopContent>
       {renderImages(postingData.posting_pictures)}
       <SliderControls>

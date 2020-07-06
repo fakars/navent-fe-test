@@ -1,12 +1,24 @@
 import { default as types } from './types'
 import { default as server } from '../../api'
 
-export const fetchPostings = () => async dispatch => {
-  const res = await server.get('http://localhost:3001/postings')
+export const fetchFilters = () => async dispatch => {
+  const { data } = await server.get('/filters')
   dispatch({
-    type: types.FETCH_POSTINGS,
-    payload: res.data,
+    type: types.FETCH_FILTERS,
+    payload: data,
   })
+}
+
+export const fetchPostings = () => async dispatch => {
+  try {
+    const { data } = await server.get('/postings')
+    dispatch({
+      type: types.FETCH_POSTINGS,
+      payload: data,
+    })
+  } catch (e) {
+    console.error('Unable to fetch posting list', e)
+  }
 }
 
 export const filterByOperation = value => dispatch => {
@@ -34,5 +46,16 @@ export const sendLead = value => dispatch => {
   dispatch({
     type: types.SEND_LEAD,
     payload: value,
+  })
+}
+
+export const setFavorite = (postingId, value) => async dispatch => {
+  try {
+    await server.put(`/postings/${postingId}`, { favorited: value })
+  } catch (e) {
+    console.error('Error while setting faviorited status', e)
+  }
+  dispatch({
+    type: types.SET_FAVORITED,
   })
 }

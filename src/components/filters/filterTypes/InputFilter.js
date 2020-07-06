@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { filterByAddress } from '../../../redux/actions'
 import styled from 'styled-components'
-import { FilterTitle, StyledInput, MagniButton } from '../elements'
+import { FilterTitle, StyledInput, MagniButton } from '../../common'
 
 const SearchWrapper = styled.div`
   margin-bottom: 15px;
@@ -12,8 +12,9 @@ const SearchWrapper = styled.div`
   transition: display 500ms ease-in;
 `
 
-const InputFilter = ({ content, filterByAddress, addressSearched }) => {
+const InputFilter = ({ content, filterByAddress }) => {
   const [visible, setVisible] = useState(true)
+  const [searchValue, setSearchValue] = useState('')
 
   const handleToggle = () => {
     if (visible) {
@@ -23,14 +24,14 @@ const InputFilter = ({ content, filterByAddress, addressSearched }) => {
     }
   }
 
-  const handleOnSubmit = e => {
-    e.preventDefault()
-    console.log(e.target)
-    filterByAddress(addressSearched)
+  const handleOnClick = () => {
+    if (!searchValue) return
+    filterByAddress(searchValue)
+    setSearchValue('')
   }
 
   const handleOnchange = e => {
-    filterByAddress(e.target.value)
+    setSearchValue(e.target.value)
   }
 
   return (
@@ -38,15 +39,15 @@ const InputFilter = ({ content, filterByAddress, addressSearched }) => {
       <FilterTitle visible={visible} onClick={handleToggle}>
         <h3>{content.title}</h3>
       </FilterTitle>
-      <SearchWrapper visible={visible} onSubmit={e => handleOnSubmit(e)}>
+      <SearchWrapper visible={visible}>
         <StyledInput
           name="search"
           type="search"
           placeholder={content.placeholder}
           onChange={e => handleOnchange(e)}
-          value={addressSearched}
+          value={searchValue}
         />
-        <MagniButton />
+        <MagniButton onClick={handleOnClick} />
       </SearchWrapper>
     </>
   )

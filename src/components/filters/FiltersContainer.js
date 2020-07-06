@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Filter from './Filter'
+import AppliedFilters from './filterTypes/AppliedFilters'
 
 const Container = styled.section`
   background: ${({ theme }) => theme.bg.section_bg};
@@ -11,15 +12,10 @@ const Container = styled.section`
   height: fit-content;
 `
 
-const AppliedFilters = styled.h3`
-  font-size: 17px;
-  margin-bottom: 1.3em;
-`
-
 const FiltersContainer = () => {
   return (
     <Container>
-      <AppliedFilters>Filtrado actual</AppliedFilters>
+      <AppliedFilters title="Filtrado actual"></AppliedFilters>
       <Filter type="address" />
       <Filter type="operation" />
     </Container>

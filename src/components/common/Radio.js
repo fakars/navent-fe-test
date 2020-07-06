@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { filterByOperation } from '../../../redux/actions'
+import { filterByOperation } from '../../redux/actions'
 
 const RadioOption = styled.div`
   position: relative;
@@ -48,21 +48,36 @@ const RadioOption = styled.div`
   }
 `
 
-const Radio = ({ name, value, wording, filterByOperation }) => {
+const Radio = ({
+  name,
+  value,
+  wording,
+  filterByOperation,
+  selectedOperation,
+}) => {
   return (
-    <RadioOption>
-      <label>
-        <input
-          onClick={e => filterByOperation(e.target.value)}
-          type="radio"
-          name={name}
-          value={value}
-        />
-        {wording}
-        <span />
-      </label>
-    </RadioOption>
+    <div>
+      <RadioOption>
+        <label onClick={e => filterByOperation(e.target.value)}>
+          <input
+            type="radio"
+            name={name}
+            value={value}
+            checked={value === selectedOperation}
+            readOnly
+          />
+          {wording}
+          <span />
+        </label>
+      </RadioOption>
+    </div>
   )
 }
 
-export default connect(null, { filterByOperation })(Radio)
+const mapStateToProps = ({ filters }) => {
+  return {
+    selectedOperation: filters.selectedOperation,
+  }
+}
+
+export default connect(mapStateToProps, { filterByOperation })(Radio)

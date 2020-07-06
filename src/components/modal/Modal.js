@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { activateLeadModal, sendLead } from '../../redux/actions'
 import styled, { keyframes } from 'styled-components'
-import { StyledInput } from '../filters/elements'
-import { Button } from '../postings/elements'
+import { StyledInput, SubmitButton } from '../common'
 
 const bg_animation_in = keyframes`
   from {
     background: rgba(0,0,0,0);
   } 
   to{
-    background: rgba(0,0,0,0.5)
+    background: rgba(0,0,0,0.5);
   }
 `
 
@@ -50,7 +49,6 @@ const ModalForm = styled.div`
       margin-bottom: 20px;
       text-align: center;
     }
-
     label {
       font-size: 14px;
       margin-bottom: 10px;
@@ -62,14 +60,6 @@ const ModalForm = styled.div`
       padding: 10px;
     }
   }
-`
-
-const ModalSent = styled.div`
-  width: 30%;
-  background: white;
-  border-radius: 7px;
-  animation: ${modalBox_animation} 500ms forwards;
-  padding: 1.5em 1.5em 1.5em 1.5em;
 `
 
 const CloseButton = styled.span`
@@ -130,6 +120,8 @@ const LeadModal = ({
   }
 
   const closeModal = () => {
+    setErrors({ name: '', phone: '', email: '' })
+    setFormData({ name: '', phone: '', email: '' })
     activateLeadModal({ active: false, postingId: '' })
   }
 
@@ -169,7 +161,7 @@ const LeadModal = ({
             error={errors.email}
           />
           <ErrorContainer>{errors.email}</ErrorContainer>
-          <Button onClick={handleSubmit}>Enviar</Button>
+          <SubmitButton onClick={handleSubmit}>Enviar</SubmitButton>
         </div>
       </ModalForm>
       )

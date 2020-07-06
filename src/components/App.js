@@ -19,7 +19,7 @@ const GlobalStyles = createGlobalStyle`
 
 const Wrapper = styled.main`
   display: grid;
-  grid-template-columns: 19em calc(100% - 400px);
+  grid-template-columns: 19em calc(100% - 375px);
   grid-column-gap: 0.7em;
   padding: 0.7em 5em 0.7em 5em;
 `

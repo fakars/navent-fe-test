@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { FilterTitle, Radio } from '../elements'
+import { FilterTitle, Radio } from '../../common'
 
 const RadioWrapper = styled.div`
   margin-bottom: 15px;

@@ -1,15 +1,17 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
 const cors = require('cors')
 const postingController = require('./controllers/postingController')
 const filterController = require('./controllers/filterController')
 
-const options = {
-  origin: '*',
-  optionsSuccessStatus: 200,
-}
-
-app.use(cors(options))
+app.use(
+  cors({
+    origin: '*',
+    optionsSuccessStatus: 200,
+  })
+)
+app.use(bodyParser.json())
 
 app.use('/postings', postingController)
 app.use('/filters', filterController)

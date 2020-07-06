@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { activateLeadModal } from '../../../redux/actions'
 import styled from 'styled-components'
 import { daysFromDateToNow } from '../../../utils'
-import { Button } from './Button'
+import { SubmitButton } from '../../common'
 
 const FooterWrapper = styled.div`
   display: flex;
@@ -33,13 +33,13 @@ const Footer = ({ postingData, activateLeadModal }) => {
       <p>{`Publicado hace ${daysFromDateToNow(
         postingData.publish_date
       )} dias`}</p>
-      <Button
+      <SubmitButton
         onClick={() =>
           activateLeadModal({ active: true, postingId: postingData.posting_id })
         }
       >
         Contactar
-      </Button>
+      </SubmitButton>
     </FooterWrapper>
   )
 }

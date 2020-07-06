@@ -44,9 +44,9 @@ const Icon = styled.span`
     transform: rotate(40deg);
   }
 `
-const MagniButton = () => {
+const MagniButton = ({ onClick }) => {
   return (
-    <Button>
+    <Button onClick={onClick}>
       <Icon />
     </Button>
   )

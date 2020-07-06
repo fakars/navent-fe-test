@@ -16,7 +16,7 @@ const ContentWrapper = styled.div`
   }
 `
 
-const Content = ({ postingData }) => {
+const Description = ({ postingData }) => {
   return (
     <ContentWrapper plan={postingData.publication_plan}>
       <p>{postingData.posting_description}</p>
@@ -24,4 +24,4 @@ const Content = ({ postingData }) => {
   )
 }
 
-export default Content
+export default Description

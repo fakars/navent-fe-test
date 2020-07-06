@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 const PriceWrapper = styled.div`
   border-right: 1px solid #e9e9e9;
   padding: 12px 0 15px 11px;
+  height: 70px;
   p {
     font-size: 1.4375rem;
     font-weight: 800;
