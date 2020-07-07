@@ -13,5 +13,6 @@
 ## Install and usage:
 
 1. Clone the project using the command `git clone https://github.com/fakars/navent-fe-test.git`.
-2. At the project's root run the command `yarn start`, to start the front end application on port 3000
-3. On a separate terminal run the command `yarn rest`, to start a small rest api on port 3001
+2. At the project's root folder run the command `yarn install` to add all the dependencies needed to run the app
+3. Then run `yarn start`, to start the front end application on port 3000
+4. Finally on a separate terminal window run the command `yarn rest`, to start a small rest api on port 3001

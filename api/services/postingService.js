@@ -1,7 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const db = path.resolve('../postings-list/api', 'db.json')
-const { post } = require('../controllers/filterController')
+const db = path.resolve(process.cwd() + '/api', 'db.json')
 
 const getPostings = () => {
   try {
