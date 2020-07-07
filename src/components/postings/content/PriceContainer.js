@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import { addThousandSeparator } from '../../../utils'
+import { connect } from 'react-redux'
 
 const PriceWrapper = styled.div`
   border-right: 1px solid #e9e9e9;
   padding: 12px 0 15px 11px;
+  height: 70px;
   p {
     font-size: 1.4375rem;
     font-weight: 800;
@@ -33,13 +35,20 @@ const renderExpenses = expenses => {
   )
 }
 
-const PriceContainer = ({ postingData }) => {
+const PriceContainer = ({ prices }) => {
   return (
     <PriceWrapper>
-      {renderPrices(postingData.posting_prices)}
-      {renderExpenses(postingData.posting_prices[0].expenses)}
+      {renderPrices(prices)}
+      {renderExpenses(prices[0].expenses)}
     </PriceWrapper>
   )
 }
 
-export default PriceContainer
+const mapStateToProps = (state, ownProps) => {
+  return {
+    prices: state.postings.find(p => p.posting_id === ownProps.postingId)
+      .posting_prices,
+  }
+}
+
+export default connect(mapStateToProps)(PriceContainer)

@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import ImageGallery from './elements/ImageGallery'
-import Header from './elements/Header'
-import Footer from './elements/Footer'
-import Content from './elements/Content'
-import PriceContainer from './elements/PriceContainer'
+import {
+  Header,
+  Footer,
+  Description,
+  PriceContainer,
+  ImageGallery,
+} from './content'
 
 const CardWrapper = styled.div`
   margin: 0 0 10px 0;
@@ -47,11 +49,11 @@ const Card = ({ postingData }) => {
       <CardData>
         <DataLeft>
           <ImageGallery postingData={postingData} />
-          <PriceContainer postingData={postingData} />
+          <PriceContainer postingId={postingData.posting_id} />
         </DataLeft>
         <DataRight>
           <Header postingData={postingData} />
-          <Content postingData={postingData} />
+          <Description postingData={postingData} />
           <Footer postingData={postingData} />
         </DataRight>
       </CardData>

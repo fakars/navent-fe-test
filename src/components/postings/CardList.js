@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { fetchPostings } from '../../redux/actions'
 import Card from './Card'
-import postings from './postingdata'
 
-const sortedPostings = postingsArray => {
+const sortPostings = postingsArray => {
   const order = {
     SUPERHIGHLIGHTED: 1,
     HIGHLIGHTED: 2,
@@ -13,15 +14,49 @@ const sortedPostings = postingsArray => {
   )
 }
 
-const CardList = () => {
+const CardList = ({
+  postings,
+  fetchPostings,
+  selectedOperation,
+  addressSearched,
+}) => {
+  useEffect(() => {
+    fetchPostings()
+  }, [fetchPostings])
+
+  const filtered = postingsArray => {
+    if (selectedOperation !== '0') {
+      postingsArray = postingsArray.filter(
+        ({ operation_type }) =>
+          operation_type.operation_type_id.toString() === selectedOperation
+      )
+    }
+    if (addressSearched !== '') {
+      postingsArray = postingsArray.filter(({ posting_location }) =>
+        `${posting_location.address}, ${posting_location.zone}, ${posting_location.city}`
+          .toLowerCase()
+          .includes(addressSearched.toLowerCase())
+      )
+    }
+    return postingsArray
+  }
+
   return (
     <section>
       {postings &&
-        sortedPostings(postings).map(posting => {
+        sortPostings(filtered(postings)).map(posting => {
           return <Card key={posting.posting_id} postingData={posting} />
         })}
     </section>
   )
 }
 
-export default CardList
+const mapStateToProps = ({ postings, filters }) => {
+  return {
+    postings,
+    selectedOperation: filters.selectedOperation,
+    addressSearched: filters.addressSearched,
+  }
+}
+
+export default connect(mapStateToProps, { fetchPostings })(CardList)
