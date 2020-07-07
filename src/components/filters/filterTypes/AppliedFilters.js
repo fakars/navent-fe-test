@@ -1,7 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { filterByOperation, filterByAddress } from '../../../redux/actions'
+import { renderOperationType } from '../../../utils'
+
+const active_bullet = keyframes`
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+`
 
 const AppliedContainer = styled.div`
   margin-bottom: 1.3em;
@@ -9,16 +19,27 @@ const AppliedContainer = styled.div`
     font-size: 17px;
     margin-bottom: 15px;
   }
-  span {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 8px;
-    color: white;
-    font-size: 10px;
-    font-weight: 600;
-    border-radius: 5px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
+`
+
+const FilterBullet = styled.span`
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 8px 5px 10px;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  margin: 5px 0 0 5px;
+  animation: ${active_bullet} 500ms forwards;
+`
+
+const CloseButton = styled.span`
+  font-size: 16px;
+  text-align: center;
+  margin: 2.5px 0 0 10px;
+  cursor: pointer;
 `
 
 const AppliedFilters = ({
@@ -29,26 +50,22 @@ const AppliedFilters = ({
 }) => {
   const renderAppliedFilters = () => {
     const filters = []
-    const operation = {
-      '1': 'Alquiler',
-      '2': 'Venta',
-      '3': 'Temporal',
-    }
     if (appliedFilters.operation !== '0') {
       filters.push(
-        <span
-          key={appliedFilters.operation}
-          onClick={() => filterByOperation('0')}
-        >
-          {operation[appliedFilters.operation]}
-        </span>
+        <FilterBullet key={appliedFilters.operation}>
+          {renderOperationType(appliedFilters.operation)}
+          <CloseButton onClick={() => filterByOperation('0')}>
+            &times;
+          </CloseButton>
+        </FilterBullet>
       )
     }
     if (appliedFilters.address) {
       filters.push(
-        <span key={appliedFilters.address} onClick={() => filterByAddress('')}>
+        <FilterBullet key={appliedFilters.address}>
           {appliedFilters.address}
-        </span>
+          <CloseButton onClick={() => filterByAddress('')}>&times;</CloseButton>
+        </FilterBullet>
       )
     }
     return filters

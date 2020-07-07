@@ -2,7 +2,8 @@ import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import FiltersContainer from './filters/FiltersContainer'
 import CardList from './postings/CardList'
-import LeadModal from './modal/Modal'
+import LeadModal from './modal/LeadModal'
+import SuccessLead from './modal/SuccessLead'
 import theme from '../theme'
 
 const GlobalStyles = createGlobalStyle`
@@ -33,6 +34,7 @@ const App = ({ leadModalActive }) => {
         <CardList />
       </Wrapper>
       <LeadModal />
+      <SuccessLead />
     </ThemeProvider>
   )
 }

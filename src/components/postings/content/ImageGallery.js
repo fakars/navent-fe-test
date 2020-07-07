@@ -42,6 +42,7 @@ const SliderButton = styled.button`
     transform: ${({ direction }) =>
       direction === 'right' ? 'rotate(135deg)' : 'rotate(-45deg)'};
     margin-left: ${({ direction }) => (direction === 'right' ? '45%' : '20%')};
+    opacity: ${({ isLastImage }) => (isLastImage ? '0.5' : '1')};
   }
 `
 const TopContent = styled.div`
@@ -101,13 +102,13 @@ const ImageGallery = ({ postingData }) => {
   }
 
   const nextImage = () => {
-    if (activeImage + 1 < postingData.posting_pictures.length) {
+    if (activeImage < postingData.posting_pictures.length - 1) {
       setActiveImage(activeImage + 1)
     }
   }
   const previousImage = () => {
     if (
-      activeImage + 1 <= postingData.posting_pictures.length &&
+      activeImage <= postingData.posting_pictures.length - 1 &&
       activeImage > 0
     ) {
       setActiveImage(activeImage - 1)
@@ -122,12 +123,20 @@ const ImageGallery = ({ postingData }) => {
     <GalleryWrapper plan={postingData.publication_plan}>
       <TopContent>
         <Plan>{renderPlan(postingData.publication_plan)}</Plan>
-        <FavoriteButton />
+        <FavoriteButton postingId={postingData.posting_id} />
       </TopContent>
       {renderImages(postingData.posting_pictures)}
       <SliderControls>
-        <SliderButton onClick={previousImage} direction="left" />
-        <SliderButton onClick={nextImage} direction="right" />
+        <SliderButton
+          onClick={previousImage}
+          direction="left"
+          isLastImage={activeImage === 0}
+        />
+        <SliderButton
+          onClick={nextImage}
+          direction="right"
+          isLastImage={activeImage === postingData.posting_pictures.length - 1}
+        />
       </SliderControls>
       <ImageCounter>
         <img

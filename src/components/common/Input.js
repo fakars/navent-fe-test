@@ -8,6 +8,7 @@ const Input = styled.input`
   outline: none;
   border: 1px solid ${({ error }) => (error ? 'red' : '#e9e9e9')};
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+  font-size: 12px;
   ::-webkit-search-decoration,
   ::-webkit-search-cancel-button,
   ::-webkit-search-results-button,
@@ -29,7 +30,16 @@ const Input = styled.input`
     transition: opacity 0.2s;
   }
 `
-const StyledInput = ({ name, type, placeholder, onChange, value, error }) => (
+const StyledInput = ({
+  name,
+  type,
+  placeholder,
+  onChange,
+  value,
+  error,
+  onBlur,
+  maxLength,
+}) => (
   <Input
     name={name}
     type={type}
@@ -38,6 +48,8 @@ const StyledInput = ({ name, type, placeholder, onChange, value, error }) => (
     value={value}
     autoComplete="off"
     error={error}
+    onBlur={onBlur}
+    maxLength={maxLength}
   />
 )
 

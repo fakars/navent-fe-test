@@ -34,12 +34,19 @@ const InputFilter = ({ content, filterByAddress }) => {
     setSearchValue(e.target.value)
   }
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      filterByAddress(searchValue)
+      setSearchValue('')
+    }
+  }
+
   return (
     <>
       <FilterTitle visible={visible} onClick={handleToggle}>
         <h3>{content.title}</h3>
       </FilterTitle>
-      <SearchWrapper visible={visible}>
+      <SearchWrapper visible={visible} onKeyDown={e => handleKeyDown(e)}>
         <StyledInput
           name="search"
           type="search"

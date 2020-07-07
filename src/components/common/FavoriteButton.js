@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
+import { setFavorited } from '../../redux/actions'
 import styled from 'styled-components'
 
 const Button = styled.button`
@@ -27,17 +29,27 @@ const Icon = styled.span`
       : `url(${require('../../assets/img/fav.svg')})`};
 `
 
-const FavoriteButton = () => {
-  const [favorite, setFavorite] = useState(false)
-
-  const handleFavorite = () => {
-    return !favorite ? setFavorite(true) : setFavorite(false)
+const FavoriteButton = ({ postingId, favorited, setFavorited }) => {
+  const handleFavorite = async () => {
+    if (!favorited) {
+      setFavorited(postingId, true)
+    } else {
+      setFavorited(postingId, false)
+    }
   }
   return (
     <Button onClick={handleFavorite}>
-      <Icon favorite={favorite} />
+      <Icon favorite={favorited} />
     </Button>
   )
 }
 
-export default FavoriteButton
+const mapStateToProps = (state, ownProps) => {
+  return {
+    favorited: state.postings.find(
+      posting => posting.posting_id === ownProps.postingId
+    ).favorited,
+  }
+}
+
+export default connect(mapStateToProps, { setFavorited })(FavoriteButton)

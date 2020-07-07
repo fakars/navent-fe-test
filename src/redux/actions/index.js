@@ -42,6 +42,13 @@ export const activateLeadModal = value => dispatch => {
   })
 }
 
+export const activateSuccesModal = value => dispatch => {
+  dispatch({
+    type: types.SUCCESS_MODAL,
+    payload: value,
+  })
+}
+
 export const sendLead = value => dispatch => {
   dispatch({
     type: types.SEND_LEAD,
@@ -49,7 +56,7 @@ export const sendLead = value => dispatch => {
   })
 }
 
-export const setFavorite = (postingId, value) => async dispatch => {
+export const setFavorited = (postingId, value) => async dispatch => {
   try {
     await server.put(`/postings/${postingId}`, { favorited: value })
   } catch (e) {
@@ -57,5 +64,6 @@ export const setFavorite = (postingId, value) => async dispatch => {
   }
   dispatch({
     type: types.SET_FAVORITED,
+    payload: { id: postingId, favorited: value },
   })
 }

@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { activateLeadModal, sendLead } from '../../redux/actions'
+import {
+  activateLeadModal,
+  sendLead,
+  activateSuccesModal,
+} from '../../redux/actions'
 import styled, { keyframes } from 'styled-components'
 import { StyledInput, SubmitButton } from '../common'
 
@@ -24,7 +28,7 @@ const modalBox_animation = keyframes`
   }
 `
 
-const ModalBg = styled.div`
+const ModalWrapper = styled.div`
   display: ${({ status }) => (status ? 'flex' : 'none')};
   align-items: center;
   justify-content: center;
@@ -36,7 +40,7 @@ const ModalBg = styled.div`
   animation: ${bg_animation_in} 500ms forwards;
 `
 
-const ModalForm = styled.div`
+const ModalForm = styled.form`
   width: 30%;
   background: white;
   border-radius: 7px;
@@ -50,11 +54,11 @@ const ModalForm = styled.div`
       text-align: center;
     }
     label {
-      font-size: 14px;
       margin-bottom: 10px;
     }
     input {
       width: 100%;
+      font-size: 14px;
     }
     button {
       padding: 10px;
@@ -87,47 +91,90 @@ const ErrorContainer = styled.span`
 const LeadModal = ({
   leadModalStatus,
   activateLeadModal,
+  activateSuccesModal,
   sendLead,
   sentLead,
 }) => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '' })
   const [errors, setErrors] = useState({ name: '', phone: '', email: '' })
 
-  const handleSubmit = () => {
-    const emailRegex = /^[a-zA-z0-9]+@[a-zA-z0-9]+\.[a-zA-z0-9]{3}$/g
-    const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/g
+  const validateName = () => {
     if (!formData.name) {
-      setErrors({ name: 'Ingresa tu nombre' })
-    } else if (!formData.phone) {
-      setErrors({ phone: 'Ingresa tu teléfono' })
+      setErrors({ ...errors, name: 'Ingresa tu nombre' })
+    } else {
+      setErrors({ ...errors, name: '' })
+      return true
+    }
+  }
+
+  const validatePhone = () => {
+    const phoneRegex = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/g
+    if (!formData.phone) {
+      setErrors({ ...errors, phone: 'Ingresa tu teléfono' })
     } else if (!phoneRegex.test(formData.phone)) {
-      setErrors({ phone: 'El formato de teléfono no es valido' })
-    } else if (!formData.email) {
-      setErrors({ email: 'Ingresa tu email' })
+      setErrors({ ...errors, phone: 'El formato de teléfono no es valido' })
+    } else {
+      setErrors({ ...errors, phone: '' })
+      return true
+    }
+  }
+
+  const validateEmail = () => {
+    const emailRegex = /^[a-zA-ZñÑ0-9]+@[a-zA-ZñÑ0-9]+\.[a-zA-z0-9]{3}$/g
+    if (!formData.email) {
+      setErrors({ ...errors, email: 'Ingresa tu email' })
     } else if (!emailRegex.test(formData.email)) {
-      setErrors({ email: 'El formato de e-mail no es valido' })
+      setErrors({ ...errors, email: 'El formato de e-mail no es valido' })
     } else if (
       formData.email === sentLead.email &&
       leadModalStatus.postingId === sentLead.postingId
     ) {
       setErrors({ ...errors, email: 'Ya contactaste a este anunciante' })
     } else {
+      setErrors({ ...errors, email: '' })
+      return true
+    }
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (validateName() && validatePhone() && validateEmail()) {
       sendLead({ ...formData, postingId: leadModalStatus.postingId })
-      setErrors({ name: '', phone: '', email: '' })
-      setFormData({ name: '', phone: '', email: '' })
+      activateSuccesModal(true)
       closeModal()
+    }
+  }
+
+  const handleOnChange = e => {
+    const nameRegex = /^[a-zA-ZñÑ]{0,}$/
+    const phoneRegex = /^[0-9]{0,}$/
+    if (e.target.name === 'name' && nameRegex.test(e.target.value)) {
+      setFormData({ ...formData, name: e.target.value })
+      validateName()
+    }
+    if (e.target.name === 'phone' && phoneRegex.test(e.target.value)) {
+      setFormData({ ...formData, phone: e.target.value })
+      validatePhone()
+    }
+    if (e.target.name === 'email') {
+      setFormData({ ...formData, email: e.target.value })
+      validatePhone()
     }
   }
 
   const closeModal = () => {
     setErrors({ name: '', phone: '', email: '' })
     setFormData({ name: '', phone: '', email: '' })
-    activateLeadModal({ active: false, postingId: '' })
+    activateLeadModal({ ...leadModalStatus, active: false })
   }
 
   return (
-    <ModalBg onClick={closeModal} status={leadModalStatus.active}>
-      <ModalForm onClick={e => e.stopPropagation()}>
+    <ModalWrapper onClick={closeModal} status={leadModalStatus.active}>
+      <ModalForm
+        onClick={e => e.stopPropagation()}
+        onSubmit={e => handleSubmit(e)}
+        method="POST"
+      >
         <div>
           <h3>Contactar al anunciante</h3>
           <CloseButton onClick={closeModal}>&times;</CloseButton>
@@ -136,9 +183,12 @@ const LeadModal = ({
             type="text"
             name="name"
             placeholder="Ingresá tu nombre"
-            onChange={e => setFormData({ ...formData, name: e.target.value })}
+            onChange={handleOnChange}
+            onBlur={validateName}
             value={formData.name}
             error={errors.name}
+            data={formData.name}
+            maxLength="40"
           />
           <ErrorContainer>{errors.name}</ErrorContainer>
           <label htmlFor="phone">Teléfono</label>
@@ -146,9 +196,11 @@ const LeadModal = ({
             type="text"
             name="phone"
             placeholder="Ingresá tu telefono"
-            onChange={e => setFormData({ ...formData, phone: e.target.value })}
+            onChange={handleOnChange}
             value={formData.phone}
             error={errors.phone}
+            onBlur={validatePhone}
+            maxLength="11"
           />
           <ErrorContainer>{errors.phone}</ErrorContainer>
           <label htmlFor="email">E-mail</label>
@@ -156,16 +208,18 @@ const LeadModal = ({
             type="text"
             name="email"
             placeholder="Ingresá tu e-mail"
-            onChange={e => setFormData({ ...formData, email: e.target.value })}
+            onChange={handleOnChange}
             value={formData.email}
             error={errors.email}
+            onBlur={validateEmail}
+            maxLength="40"
           />
           <ErrorContainer>{errors.email}</ErrorContainer>
-          <SubmitButton onClick={handleSubmit}>Enviar</SubmitButton>
+          <SubmitButton>Enviar</SubmitButton>
         </div>
       </ModalForm>
       )
-    </ModalBg>
+    </ModalWrapper>
   )
 }
 
@@ -176,6 +230,8 @@ const mapStateToProps = ({ modals, leads }) => {
   }
 }
 
-export default connect(mapStateToProps, { activateLeadModal, sendLead })(
-  LeadModal
-)
+export default connect(mapStateToProps, {
+  activateLeadModal,
+  sendLead,
+  activateSuccesModal,
+})(LeadModal)

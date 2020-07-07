@@ -30,3 +30,16 @@ export const renderPlan = plan => {
     }
   }
 }
+
+export const renderOperationType = value => {
+  switch (value) {
+    case '1':
+      return 'Alquiler'
+    case '2':
+      return 'Venta'
+    case '3':
+      return 'Temporal'
+    default:
+      return ''
+  }
+}
