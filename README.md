@@ -12,7 +12,12 @@
 
 ## Install and usage:
 
-1. Clone the project using the command `git clone https://github.com/fakars/navent-fe-test.git`.
-2. At the project's root folder run the command `yarn install` to add all the dependencies needed to run the app
-3. Then run `yarn start`, to start the front end application on port 3000
-4. Finally on a separate terminal window run the command `yarn rest`, to start a small rest api on port 3001
+1. Clone the project by runing `git clone https://github.com/fakars/navent-fe-test.git`.
+
+2. Start the back end app by changing directories into the "server" folder, run `yarn install` to add all dependencies and then run `yarn rest` to start the app on port 3001.
+
+3. On a separate terminal window start the front end app by changing directories into the "client" folder, run `yarn install` to add all dependencies and then run `yarn start` to start the front end application on port 3000.
+
+4. Alternatively the project can be run by typing `docker-compose up --build`\* at the project's root folder.
+
+- docker-compose must be installed in your system
