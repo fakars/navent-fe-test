@@ -1,0 +1,17 @@
+version: '3'
+services:
+  server:
+    build: ./server
+    expose:
+      - 3001
+    ports:
+      - 3001:3001
+    command: yarn rest
+  client:
+    build: ./client
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    stdin_open: true
+    command: yarn start
