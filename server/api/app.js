@@ -16,6 +16,6 @@ app.use(bodyParser.json())
 app.use('/postings', postingController)
 app.use('/filters', filterController)
 
-app.listen(3001, () => {
-  console.log('Server started')
+let listener = app.listen(3001, () => {
+  console.log('Server started on port :' + listener.address().port)
 })
